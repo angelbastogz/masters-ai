@@ -8,7 +8,7 @@ Este es un repositorio en construcción: la estructura irá creciendo a medida q
 
 | Materia | Sección | Contenido |
 |---|---|---|
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | Ejercicios | [Ejercicio 01 — Aplicaciones de IA que uso o he usado](./Introducci%C3%B3n%20a%20la%20IA/Ejercicios/ejercicio_01/ejercicio-01.md) |
+| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | Ejercicios | [Ejercicio 01 — Aplicaciones de IA que uso o he usado](Introducción a la IA/01_Conceptos_básicos_de_Inteligencia_Artificial/Ejercicios/ejercicio-01.md) |
 
 ## Licencia
 
