@@ -89,3 +89,61 @@ justifiquen por qué clasificaste el entorno como observable/estocástico/secuen
 - Un mismo tipo de agente puede tener **distintos PEAS** según el contexto: un dron de inspección en un túnel no es igual que uno en un campo abierto.
 - **Performance** y **Environment** suelen confundirse: la medida de desempeño dice *qué optimizas*; el entorno dice *dónde ocurre la tarea y qué condiciones enfrentas*.
 - Si dudas entre dos sensores o actuadores, pregúntate: *¿esto lo usa el agente para decidir, o solo el humano que lo supervisa?* Solo cuenta lo que el **agente** percibe o controla.
+
+## Respuestas
+
+### 1. Asistente virtual de voz
+
+- **Performance:** Entiende al usuario, response lo que el usuario solicita, response en un tiempo corto, satisfacción del usuario con la respuesta recibida.
+- **Environment:** Parcialmente observable, agente unico, determinista, episodico, semidinamico, desconocido. Interior de una vivienda, presencia de personas, ruido constante. 
+- **Actuators:** Responder solicitudes del usuario, interactuar con dispositivos inteligentes conectados al asistente, conectarse a internet para responder al usuario. Altavoces para responder al usuario.
+- **Sensors:** Microfonó, 
+
+### 2. Robot aspirador doméstico
+
+- **Performance:** Duración que tarda en completar la limpieza total del espacio, espacio total aspirado. 
+- **Environment:** Parcialmente observable, agente unico, determinista, secuencial, dinamico, discreto. Dentro de una casa, presencia de objetos y personas. 
+- **Actuators:** Ruedas para moverse, altavoces para indicar si hay algún error, botones de inicio y fin de aspirado.  
+- **Sensors:** Sensor de proximidad
+
+### 3. Sistema de recomendación de streaming
+
+- **Performance:** Recomendaciones reproducidas por el usuario. 
+- **Environment:** Parcialmente observable, agente unico, estocastico, episodico, dinamico, discreto, desconocido. Aplicación de streaming. 
+- **Actuators:** Pantalla de recomendaciones
+- **Sensors:** Historial de reproducciones 
+
+### 4. Vehículo autónomo en ciudad
+
+- **Performance:** Seguridad, llegar al destino correcto, manejar de acuerdo a las leyes vigentes. 
+- **Environment:** Parcialmente observable, agente unico, estocastico, secuencial, dinamico, continuo, desconocido. Calles, avenidas, carreteras, otros vehiculos, peatones. 
+- **Actuators:** Volante, acelerador, frenos, pantalla 
+- **Sensors:** Camaras, velocímetro, sensores de puntos criticos del auto. 
+
+### 5. Agente de trading algorítmico en bolsa 
+
+- **Performance:** Ganancia dependiendo del riesgo de inversión
+- **Environment:** Parcialmente observable, multi agente, estócastico, secuencial, dinámico, continuo, desconocido. Una aplicación, con datos en vivo de inversiones. 
+- **Actuators:** Enviar ordenes, cancelar o modificar ordenes, alertas. 
+- **Sensors:** historial de precios en tiempo real, indicadores
+
+### 6. Sistema de diagnóstico médico asistido por IA
+
+- **Performance:** Porcentaje de aciertos, cantidad de diagnostico correctos en cierto tiempo. 
+- **Environment:** Totalmente observable, agente unico, estocastico, episodico, estático, discreto, desconocido. Un sistema con datos reales de casos reales identificados y por identificar. 
+- **Actuators:** Envió de resultados, recibir información para diagnosticar. 
+- **Sensors:** Historial de casos positivos y negativos. 
+
+### 7. Dron de inspección de infraestructura
+
+- **Performance:** Precisión de localización de defectos
+- **Environment:** Parcialmente observable, agente unico, estocástico, episódico, dinámico. Viento, tráfico, ruidos externos.
+- **Actuators:** Motores para moverse, envio de alertas y resultados. 
+- **Sensors:** Carmá, gps, sensores de proximidad, cámara termica.
+
+### 8. Agente jugador de ajedrez
+
+- **Performance:** Partidas ganadas, tiempo por jugada
+- **Environment:** Totalmente observable, secuencial, estático, discreto, multiagente. 
+- **Actuators:** Mover pieza de una casilla a otra, ofrecer tablas, rendirse.
+- **Sensors:** Posiciones actuales de piezas en el tabero, reloj de la partida, jugadas. 
