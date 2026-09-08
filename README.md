@@ -12,6 +12,8 @@ Este es un repositorio en construcción: la estructura irá creciendo a medida q
 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Agentes](Introducción a la IA/02_Agentes) | Ejercicios | [Ejercicio 01 — Cambiar la ubicación del Wumpus y los pits](Introducción a la IA/02_Agentes/Ejercicios/ejercicio-01.md) |
 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Agentes](Introducción a la IA/02_Agentes) | Ejercicios | [Ejercicio 02 — Descripción PEAS de agentes inteligentes](Introducción a la IA/02_Agentes/Ejercicios/ejercicio-02.md) |
 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Búsqueda no informada](Introducción a la IA/03_Búsqueda_no_informada) | Ejercicios | [Ejercicio 01 — Comparar BFS, UCS, DFS, DLS e IDS en el mapa de Rumania](Introducción a la IA/03_Búsqueda_no_informada/Ejercicios/ejercicio-01.md) |
+| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Búsqueda informada](Introducción a la IA/04_Búsqueda_informada) | Ejercicios | [Ejercicio 01 — Comparar Greedy y A* en el mapa de Rumania](Introducción a la IA/04_Búsqueda_informada/Ejercicios/ejercicio-01.md) |
+| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Perceptrón multicapa](Introducción a la IA/Perceptrón multicapa) | Ejercicios | [Ejercicio 01 — Más capas en el perceptrón multicapa (Iris)](Introducción a la IA/Perceptrón multicapa/Ejercicios/ejercicio-01.md) |
 
 ## Licencia
 
