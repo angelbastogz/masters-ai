@@ -15,6 +15,7 @@ Este es un repositorio en construcción: la estructura irá creciendo a medida q
 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Búsqueda informada](Introducción a la IA/04_Búsqueda_informada) | Ejercicios | [Ejercicio 01 — Comparar Greedy y A* en el mapa de Rumania](Introducción a la IA/04_Búsqueda_informada/Ejercicios/ejercicio-01.md) |
 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Perceptrón multicapa](Introducción a la IA/05_Perceptrón_multicapa) | Ejercicios | [Ejercicio 01 — Más capas en el perceptrón multicapa (Iris)](Introducción a la IA/05_Perceptrón_multicapa/Ejercicios/ejercicio-01.md) |
 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Visión computacional](Introducción a la IA/06_Visión_computacional) | Ejercicios | [Ejercicio 01 — Cambiar la imagen de predicción en YOLO](Introducción a la IA/06_Visión_computacional/Ejercicios/ejercicio-01.md) |
+| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Clustering K-medias](Introducción a la IA/07_Clustering_K-medias) | Ejercicios | [Ejercicio 01 — Separar los blobs y volver a elegir k](Introducción a la IA/07_Clustering_K-medias/Ejercicios/ejercicio-01.md) |
 
 ## Licencia
 
