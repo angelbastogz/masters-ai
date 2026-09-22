@@ -60,3 +60,87 @@ https://github.com/user-attachments/assets/254c0e9b-d75a-4e56-af20-b196bf7338b5
 
 https://github.com/user-attachments/assets/ea65afc6-64f4-4168-9d47-9b7e2a86248d
 
+## Dominio y tamaño del corpus
+El dominio está conformado por el reglamento oficial de la MLB edición 2026, dividido en 11 archivos md para facilitar
+la indexación. 
+
+|            |                                                    |
+|------------|----------------------------------------------------|
+| Documentos | 11 archivos `.md`, aproximadamente 55,000 palabras |
+| Chunks     | 331 chunks totales                                 |
+| Embedding  | gemini-embedding-001 (Google AI)                   |
+
+## Particiones - Tamaño y overlap
+
+Se particionó en `331` chunks de `300` tokens con overlap de `50` tokens usando el tokenizador `cl100k_base` de OpenAI.
+Gemini no provee un tokenizador que pueda utilizar facilmente como el de OpenAI es por eso que utilicé el `cl100k_base`. 
+
+Los embeddings se generaron con el modelo `gemini-embedding-001` de Google AI. 
+
+Utilice 300 tokens para particionar los textos ya que es un punto medio típico y suficiente para cubrir una regla completa con
+su explicación.
+
+El overlap de 50 tokens nos permité que si una de las reglas queda dividida en dos chunks no se pierda por completo ya que overlap
+asegura que la frontera quede representada en ambos chunks. 
+
+
+## Abstenciones
+
+Para las abstenciones tenemos dos capas:
+* Umbral de distancia
+
+Antes de llamar al LLM, el sistema mirá la distancia del hunk más cercado que devolvió Chroma. Si esa distancia es mayor a `0.65`,
+o si no hubo chunks en absoluto, se abstiene inmediatamente. 
+
+```python
+def answer(question: str, chunks: list[dict], threshold: float = 0.65) -> dict:
+    if not chunks or chunks[0]["distance"] > threshold:
+        return {"text": "No tengo información suficiente en el contexto para responder eso.", "abstained": True}
+```
+[Ver en Github](https://github.com/angelbastogz/masters-ai/blob/a57b9a7d1bc644f4eee7fe06aa0377b2770f604f/Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final/rag-app/app/generate.py#L11-L13)
+
+Chrome usa distancia euclidiana entre los vectores, por lo que, cuanto más lejos está el embedding de la pregunta del embedding 
+del chunk más parecido, más distancia hay.
+
+Elegí un threshold de 0.65 ya que al realizar algunas pruebas noté que ese threshold era suficiente para identificar si alguna pregunta
+pertenece al dominio del corpus. 
+
+* Instrucción en el prompt
+
+Si pasa la primera capa, lo siguiente se encuentrá en el prompt que enviamos a Gemini. 
+Em el prompt se indicamos a Gemini que utilice unicamente el contexto proporcionado para responder la pregunta y en caso de no contener
+la respuesta, diga que no lo sabe.
+
+```python
+contents = f"""
+    Usa solo el siguiente contexto para responder la pregunta.
+    Si un documento del contexto no es relevante, ignóralo.
+    Si el contexto no contiene la respuesta, di que no lo sabes.
+
+    Contexto:
+    {context}
+
+    Pregunta: {question}
+    """
+```
+[Ver en Github](https://github.com/angelbastogz/masters-ai/blob/a57b9a7d1bc644f4eee7fe06aa0377b2770f604f/Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final/rag-app/app/generate.py#L19-L28
+
+## Google AI / Chroma
+
+### Google IA
+
+En esté proyecto se utiliza Google AI para dos tareas distintas:
+
+* Embeddings: Usamos el modelo `gemini-embedding-001` en [embed.py](https://github.com/angelbastogz/masters-ai/blob/a57b9a7d1bc644f4eee7fe06aa0377b2770f604f/Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final/rag-app/app/embed.py#L13-25)
+para convertir el texto en vectores numéricos que posteriormente almacenaremos en la base de datos.
+* Generación: `gemini-3.6-flash` en [generate.py](https://github.com/angelbastogz/masters-ai/blob/a57b9a7d1bc644f4eee7fe06aa0377b2770f604f/Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final/rag-app/app/generate.py#L32-35)
+para generar la respuesta a la pregunta del usuario utilizando el contexto propocionado. 
+
+### Chroma
+
+En esté proyecto se utiliza Chroma como base de datos vectorial. En ella se almacenan los chunks y el vector de embedding generado con gemini. 
+
+Chroma indexa esos vectors para búsqueda eficiente por similitud.
+
+Chroma no calcula embeddings por si mismo, utiliza GeminiEmbeddingFunction como embedding_function al crear la colección e internamente delega la conversión
+de texto a vector a Gemini. 
