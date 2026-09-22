@@ -25,7 +25,8 @@ Las instrucciones para indexar el corpus puedes encontrarlo en [./rag-app/README
 > Cuantos jugadores conforman un equipo de beisbol?
 
 ### Streamlit
-COLOCAR VIDEO `jugadores-equipo.mov`
+
+https://github.com/user-attachments/assets/bb4c545a-5ec3-40fc-95ef-1807fdee746b
 
 ### cURL
 ```curl
@@ -34,15 +35,17 @@ curl -X POST http://localhost:8000/query \
   -d '{"query": "Cuantos jugadores conforman un equipo de beisbol?"}'
 ```
 
-COLOCAR VIDEO `curl-jugadores-equipo.mov`
+https://github.com/user-attachments/assets/ecc9424c-276f-469e-8240-b4ea64255070
 
 ### docs
 
-COLOCAR VIDEO `docs-jugadores-equipo.mov`
+https://github.com/user-attachments/assets/ebc929ff-5eac-4a52-b1dd-15a180eabe17
 
 > Quien gano la serie mundial en 2026 ?
 
 ### Streamlit
+
+https://github.com/user-attachments/assets/faa6b3e9-435c-4473-96f3-889d51342356
 
 ### cURL
 ```curl
@@ -51,4 +54,9 @@ curl -X POST http://localhost:8000/query \
   -d '{"query": "Quien gano la serie mundial en 2026 ?"}'
 ```
 
+https://github.com/user-attachments/assets/254c0e9b-d75a-4e56-af20-b196bf7338b5
+
 ### docs
+
+https://github.com/user-attachments/assets/ea65afc6-64f4-4168-9d47-9b7e2a86248d
+
