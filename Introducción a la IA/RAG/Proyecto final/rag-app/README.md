@@ -36,7 +36,7 @@ pregunta ──► top-k chunks (store.query) ──► ¿distancia > 0.65? ─�
 |---|---|
 | [app/chunk.py](app/chunk.py) | Extrae texto (`.md`, `.txt`, `.pdf` con `pypdf`) y lo parte en ventanas de 300 tokens con 50 de overlap (`tiktoken`, codificación `cl100k_base`, una aproximación local del tokenizador de Gemini). |
 | [app/embed.py](app/embed.py) | Cliente de Gemini y `GeminiEmbeddingFunction` (`gemini-embedding-001`). Falla al importarse si falta `GEMINI_API_KEY`. |
-| [app/store.py](app/store.py) | ChromaDB: `ingest()` (en lotes de 50) y `query()` (top-k, devuelve `id`, `text`, `source`, `distance`). |
+| [app/store.py](app/store.py) | ChromaDB: `ingest()` (en lotes de 50), `query()` (top-k, opcionalmente filtrado por `source`), `delete_source()` y `list_sources()`. |
 | [app/generate.py](app/generate.py) | Prompt anclado al contexto, abstención por umbral de distancia y manejo de errores de Gemini. |
 | [app/main.py](app/main.py) | Endpoints de FastAPI. |
 | [ui/streamlit_app.py](ui/streamlit_app.py) | Chat en Streamlit, citas, subida de archivos y estado de la API. |
@@ -148,12 +148,17 @@ Se abre en `http://localhost:8501`. En la barra lateral:
 - **Proveedor / Modelo**: "Fast API" es el chat RAG (usa tu API). "Gemini" y "OpenAI" son un
   chatbot directo, sin recuperación ni citas.
 - **Nuevo chat**: reinicia la conversación (cambiar de proveedor también la reinicia).
-- Con "Fast API" seleccionado aparecen además **Agregar documentos** (sube `.md`, `.txt` o
-  `.pdf` y los indexa vía `POST /ingest`) y un indicador del estado de la API con el número de
-  chunks indexados.
+- Con "Fast API" seleccionado aparecen además:
+  - **Restringir búsqueda a**: filtra el retrieval a un solo documento del corpus (o "Todos los
+    documentos"), usando `GET /sources` para listar las opciones y mandando `source` en
+    `POST /query`.
+  - **Agregar documentos**: sube `.md`, `.txt` o `.pdf` y los indexa vía `POST /ingest`.
+  - Un indicador del estado de la API con el número de chunks indexados.
 
 Cada respuesta del RAG trae un desplegable **Fuentes** con los chunks usados (archivo, distancia
-y un fragmento del texto).
+y un fragmento del texto). El historial de preguntas y respuestas de la sesión queda visible en
+pantalla (`st.session_state.messages`) mientras no recargues la página o pulses "Nuevo chat"; no
+se comparte entre pestañas ni sobrevive un reinicio del servidor.
 
 ## API
 
@@ -177,13 +182,35 @@ Extrae el texto, lo parte en chunks, lo embebe y lo guarda en Chroma.
 Errores: `400` si un archivo no tiene nombre o su extensión no está soportada; `500` si falla
 el embedding o el guardado. Los PDF escaneados (imágenes sin texto) no se soportan: no hay OCR.
 
+### `GET /sources`
+
+Lista los `source` (nombres de archivo) distintos actualmente indexados en Chroma.
+
+```json
+{ "sources": ["01_objectives_of_the_game.md", "02_the_playing_field.md", "…"] }
+```
+
+### `DELETE /sources/{source}`
+
+Borra todos los chunks de un documento (por su nombre de archivo) sin tocar el resto de la
+colección — para reindexar un documento modificado, primero se borra su `source` y luego se
+vuelve a mandar por `/ingest`, sin reconstruir los demás.
+
+```json
+{ "deleted": "04_game_preliminaries.md" }
+```
+
+`404` si ese `source` no está indexado.
+
 ### `POST /query`
 
 ```json
-{ "query": "¿Cuántos jugadores tiene un equipo de béisbol?", "top_k": 5 }
+{ "query": "¿Cuántos jugadores tiene un equipo de béisbol?", "top_k": 5, "source": null }
 ```
 
-`top_k` es opcional (por defecto 5).
+`top_k` es opcional (por defecto 5). `source` es opcional (por defecto ninguno): si se manda un
+nombre de archivo, la búsqueda en Chroma se restringe a los chunks de ese documento (`where` de
+Chroma), en vez de buscar en todo el corpus.
 
 ```json
 {
@@ -214,6 +241,19 @@ respondible ("¿Cuántos jugadores tiene un equipo de béisbol?"), `0.712` para 
 el reglamento no cubre ("¿Quién ganó la Serie Mundial de 2026?") y `0.986` para una ajena
 ("¿Cuándo es la independencia de México?"). El corpus está en inglés y las preguntas pueden
 hacerse en español (los embeddings de Gemini son multilingües).
+
+## Retos opcionales
+
+- **Filtro por `source`.** `POST /query` acepta `source` para restringir el retrieval a un solo
+  documento (ver arriba). En la UI: selector "Restringir búsqueda a" en el sidebar.
+- **Borrar/reindexar sin reconstruir todo.** `DELETE /sources/{source}` borra los chunks de un
+  documento puntual; el resto de la colección queda intacto. Reindexar = borrar ese `source` +
+  volver a mandarlo por `/ingest`.
+- **Histórico de preguntas en la sesión de Streamlit.** Cada pregunta/respuesta se guarda en
+  `st.session_state.messages` y se re-pinta en cada rerun (ver "Uso" arriba). Es historial de
+  sesión/UI, no memoria conversacional: cada pregunta se manda a `/query` de forma aislada, sin
+  el contexto de las preguntas anteriores.
+- **Docker Compose (API + UI en servicios separados).** No implementado.
 
 ## Límites conocidos
 
