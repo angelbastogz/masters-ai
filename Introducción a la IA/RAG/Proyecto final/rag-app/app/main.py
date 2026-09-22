@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
 import logging
 
-from app.store import collection, ingest, query, list_sources
+from app.store import collection, ingest, query, list_sources, delete_source
 from app.generate import answer
 from app.chunk import chunk_text, extract_text
 
@@ -58,6 +58,14 @@ async def post_ingest(files: list[UploadFile] = File(...)) -> dict:
 @app.get("/sources")
 def get_sources() -> dict:
     return {"sources": list_sources()}
+
+
+@app.delete("/sources/{source}")
+def delete_source_endpoint(source: str) -> dict:
+    if source not in list_sources():
+        raise HTTPException(status_code=404, detail=f"Fuente no encontrada: {source}")
+    delete_source(source)
+    return {"deleted": source}
 
 
 class QueryRequest(BaseModel):
