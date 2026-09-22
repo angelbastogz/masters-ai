@@ -46,14 +46,16 @@ def answer(question: str, chunks: list[dict], threshold: float = 0.65) -> dict:
                 print(f"Modelo no disponible, reintentando en {wait} segundos.")
                 print(f"Error: {e}")
                 time.sleep(wait)
+            else:
+                print(f"Modelo no disponible tras {MAX_RETRIES} intentos: {e}")
         except ClientError as e:
             print(f"Cuota excedida en generate_content: {e}")
             return {
                 "text": "Se alcanzó el límite diario de uso del modelo de IA. Intenta más tarde o revisa tu cuota en Google AI Studio.",
                 "abstained": True}
 
-        return {"text": "El modelo no está disponible por el momento. Intenta de nuevo en unos minutos.",
-                "abstained": True}
+    return {"text": "El modelo no está disponible por el momento. Intenta de nuevo en unos minutos.",
+            "abstained": True}
 
 
 if __name__ == "__main__":

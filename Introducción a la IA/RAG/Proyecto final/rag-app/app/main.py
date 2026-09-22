@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
 import logging
 
-from app.store import collection, ingest, query
+from app.store import collection, ingest, query, list_sources
 from app.generate import answer
 from app.chunk import chunk_text, extract_text
 
@@ -55,15 +55,21 @@ async def post_ingest(files: list[UploadFile] = File(...)) -> dict:
     }
 
 
+@app.get("/sources")
+def get_sources() -> dict:
+    return {"sources": list_sources()}
+
+
 class QueryRequest(BaseModel):
     query: str
     top_k: int = 5
+    source: str | None = None
 
 
 @app.post("/query")
 def post_query(request: QueryRequest) -> dict:
     try:
-        chunks = query(request.query, top_k=request.top_k)
+        chunks = query(request.query, top_k=request.top_k, source=request.source)
         result = answer(question=request.query, chunks=chunks)
     except Exception as e:
         logger.exception(f"Error procesando la pregunta: {e}")

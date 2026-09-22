@@ -17,7 +17,8 @@ collection = client.get_or_create_collection(
     embedding_function=gemini_ef,
 )
 
-BATCH_SIZE = 50 # to avoid restriction limits of gemini embedding
+BATCH_SIZE = 50  # to avoid restriction limits of gemini embedding
+
 
 def ingest(chunks: list[dict]) -> None:
     ids = [c["id"] for c in chunks]
@@ -33,10 +34,21 @@ def ingest(chunks: list[dict]) -> None:
         )
         time.sleep(60)
 
-def query(prompt: str, top_k: int = 5) -> list[dict]:
+
+def delete_source(source: str) -> None:
+    collection.delete(where={"source": source})
+
+
+def list_sources() -> list[str]:
+    metadatas = collection.get(include=["metadatas"])["metadatas"]
+    return sorted({str(m["source"]) for m in metadatas})
+
+
+def query(prompt: str, top_k: int = 5, source: str | None = None) -> list[dict]:
     results = collection.query(
         query_texts=[prompt],
         n_results=top_k,
+        where={"source": source} if source else None,
     )
     ids = results["ids"][0]
     documents = results["documents"][0]
@@ -53,9 +65,10 @@ def query(prompt: str, top_k: int = 5) -> list[dict]:
         for i in range(len(ids))
     ]
 
+
 if __name__ == "__main__":
-    #chunks = chunk_all()
-    #ingest(chunks)
+    # chunks = chunk_all()
+    # ingest(chunks)
     print("¿Cuántos jugadores tiene un equipo de béisbol?")
     print(query(prompt="¿Cuántos jugadores tiene un equipo de béisbol?", top_k=5))
     print("¿Quién ganó la Serie Mundial de 2026?")

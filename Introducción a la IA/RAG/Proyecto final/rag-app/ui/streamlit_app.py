@@ -88,6 +88,17 @@ def check_api_health() -> dict | None:
     except requests.exceptions.RequestException:
         return None
 
+
+@st.cache_data(ttl=30)
+def fetch_sources() -> list[str]:
+    """Regresa los `source` distintos indexados en Chroma, o [] si la API no responde."""
+    try:
+        response = requests.get(f"{FASTAPI_URL}/sources", timeout=5)
+        response.raise_for_status()
+        return response.json()["sources"]
+    except requests.exceptions.RequestException:
+        return []
+
 # Sidebar controls. `provider`/`model` are recomputed on every rerun from
 # whatever is currently selected in the dropdowns (Streamlit widgets return
 # their current value directly, no callbacks needed). "Nuevo chat" forces a
@@ -100,7 +111,19 @@ with st.sidebar:
         reset_chat(provider, model)
         st.rerun()
 
+    selected_source = None
     if provider == "Fast API":
+        st.divider()
+
+        st.subheader("Buscar en un documento")
+        sources = fetch_sources()
+        selected_source = st.selectbox(
+            "Restringir búsqueda a",
+            ["Todos los documentos"] + sources,
+        )
+        if selected_source == "Todos los documentos":
+            selected_source = None
+
         st.divider()
 
         st.subheader("Agregar documentos")
@@ -176,7 +199,11 @@ def reply_from_model(prompt: str) -> tuple[str, list | None]:
         )
         return response.output_text or "", None
 
-    response = requests.post(f"{FASTAPI_URL}/query", json={"query": prompt}, timeout=30)
+    response = requests.post(
+        f"{FASTAPI_URL}/query",
+        json={"query": prompt, "source": selected_source},
+        timeout=30,
+    )
     response.raise_for_status()
     data = response.json()
     return data["answer"], data["citations"]
