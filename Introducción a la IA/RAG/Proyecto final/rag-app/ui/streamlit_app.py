@@ -202,7 +202,7 @@ def reply_from_model(prompt: str) -> tuple[str, list | None]:
     response = requests.post(
         f"{FASTAPI_URL}/query",
         json={"query": prompt, "source": selected_source},
-        timeout=30,
+        timeout=120,
     )
     response.raise_for_status()
     data = response.json()

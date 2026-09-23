@@ -5,7 +5,10 @@ from google.genai.errors import ServerError, ClientError
 from app.store import query
 from app.embed import gemini_client
 
-MAX_RETRIES = 3
+MAX_RETRIES = 5
+INITIAL_DELAY = 2.0
+MAX_DELAY = 60.0
+EXP_BASE = 2.0
 
 
 def answer(question: str, chunks: list[dict], threshold: float = 0.65) -> dict:
@@ -42,7 +45,7 @@ def answer(question: str, chunks: list[dict], threshold: float = 0.65) -> dict:
             return {"text": text, "abstained": False}
         except ServerError as e:
             if attempt < MAX_RETRIES - 1:
-                wait = 5 * (2 ** attempt)
+                wait = min(INITIAL_DELAY * EXP_BASE ** attempt, MAX_DELAY)
                 print(f"Modelo no disponible, reintentando en {wait} segundos.")
                 print(f"Error: {e}")
                 time.sleep(wait)
