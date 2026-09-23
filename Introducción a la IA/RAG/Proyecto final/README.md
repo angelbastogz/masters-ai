@@ -152,6 +152,10 @@ de texto a vector a Gemini.
 EL UI de streamlit muestra una sección "Buscar en un documento" con nu dropdown se los documentos existentes, al seleccionar una de las opciones la pregunta del usuario
 consultará únicamente en el source seleccionado.
 
+En el siguiente video se visualiza el funcionamiento de filtrar por documento. Primero se realiza una pregunta con la selección por defecto, "Todos los documentos" y se muestran que en las fuentes aparecen diferentes documentos. Posteriormente, se realiza la misma pregunta pero seleccionando el documento "05_playing_the_game.md" y se muestra que las fuentes fueron solamente de ese documento.
+
+https://github.com/user-attachments/assets/67dad97b-59a0-4a95-a9de-64dd86361b35
+
 ### Borrar o reindexar un documento sin reconstruir toda la colección
 
 Se agregó el endpoint `DELETE /sources/{source}`, que elimina de Chroma todos los chunks
