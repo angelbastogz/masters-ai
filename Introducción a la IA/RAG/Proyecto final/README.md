@@ -22,6 +22,8 @@ Las instrucciones para indexar el corpus puedes encontrarlo en [./rag-app/README
 
 ## Evidencias
 
+> En está sección se muestran los recordings de como responde el sistema a la pregunta:
+> 
 > Cuantos jugadores conforman un equipo de beisbol?
 
 ### Streamlit
