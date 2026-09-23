@@ -144,3 +144,30 @@ Chroma indexa esos vectors para búsqueda eficiente por similitud.
 
 Chroma no calcula embeddings por si mismo, utiliza GeminiEmbeddingFunction como embedding_function al crear la colección e internamente delega la conversión
 de texto a vector a Gemini. 
+
+## Retos opcionales
+
+### Filtro por `source`
+
+EL UI de streamlit muestra una sección "Buscar en un documento" con nu dropdown se los documentos existentes, al seleccionar una de las opciones la pregunta del usuario
+consultará únicamente en el source seleccionado.
+
+### Borrar o reindexar un documento sin reconstruir toda la colección
+
+Se agregó el endpoint `DELETE /sources/{source}`, que elimina de Chroma todos los chunks
+cuyo `source` coincide con el nombre de archivo indicado. El resto de la colección no se toca.
+Si el documento no está indexado responde `404`.
+
+```bash
+curl -X DELETE http://localhost:8000/sources/04_game_preliminaries.md
+# {"deleted": "04_game_preliminaries.md"}
+```
+
+Para reindexar un documento modificado se borra primero su `source` y después se vuelve a
+enviar el archivo a `POST /ingest` con el mismo nombre. Solo se recalculan los embeddings de
+ese documento, no los de los otros 10.
+
+### Histórico de preguntas en la sesión de Streamlit
+
+Las preguntas que realiza el usuario en la misma sesión se van almacenando y se muestran siguiendo el flujo normal de un chat. 
+El historial está limitado a la sesión actual de streamlit, es decir, si se recarga la página o cambia de modelo, la sesión se reinicía y el historial desaparecería. 
