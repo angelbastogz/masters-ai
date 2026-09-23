@@ -123,7 +123,7 @@ contents = f"""
     Pregunta: {question}
     """
 ```
-[Ver en Github](https://github.com/angelbastogz/masters-ai/blob/a57b9a7d1bc644f4eee7fe06aa0377b2770f604f/Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final/rag-app/app/generate.py#L19-L28
+[Ver en Github](https://github.com/angelbastogz/masters-ai/blob/a57b9a7d1bc644f4eee7fe06aa0377b2770f604f/Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final/rag-app/app/generate.py#L19-L28)
 
 ## Google AI / Chroma
 
