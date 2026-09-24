@@ -2,21 +2,36 @@
 
 Repositorio donde recopilo los trabajos, ejercicios y proyectos que voy realizando durante mi maestría en Inteligencia Artificial.
 
-Este es un repositorio en construcción: la estructura irá creciendo a medida que avance el programa, agregando nuevas materias, ejercicios y proyectos.
+Cada asignatura vive en su propia carpeta en la raíz del repositorio y tiene su propio `README.md` con el detalle de temas, ejercicios y proyectos.
 
-## Contenido
+## Asignaturas
 
-| Materia | Tema | Sección | Contenido |
+| # | Asignatura | Estado | Proyecto final |
 |---|---|---|---|
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Conceptos básicos de Inteligencia Artificial](Introducción a la IA/01_Conceptos_básicos_de_Inteligencia_Artificial) | Ejercicios | [Ejercicio 01 — Aplicaciones de IA que uso o he usado](Introducción a la IA/01_Conceptos_básicos_de_Inteligencia_Artificial/Ejercicios/ejercicio-01.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Agentes](Introducción a la IA/02_Agentes) | Ejercicios | [Ejercicio 01 — Cambiar la ubicación del Wumpus y los pits](Introducción a la IA/02_Agentes/Ejercicios/ejercicio-01.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Agentes](Introducción a la IA/02_Agentes) | Ejercicios | [Ejercicio 02 — Descripción PEAS de agentes inteligentes](Introducción a la IA/02_Agentes/Ejercicios/ejercicio-02.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Búsqueda no informada](Introducción a la IA/03_Búsqueda_no_informada) | Ejercicios | [Ejercicio 01 — Comparar BFS, UCS, DFS, DLS e IDS en el mapa de Rumania](Introducción a la IA/03_Búsqueda_no_informada/Ejercicios/ejercicio-01.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Búsqueda informada](Introducción a la IA/04_Búsqueda_informada) | Ejercicios | [Ejercicio 01 — Comparar Greedy y A* en el mapa de Rumania](Introducción a la IA/04_Búsqueda_informada/Ejercicios/ejercicio-01.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Perceptrón multicapa](Introducción a la IA/05_Perceptrón_multicapa) | Ejercicios | [Ejercicio 01 — Más capas en el perceptrón multicapa (Iris)](Introducción a la IA/05_Perceptrón_multicapa/Ejercicios/ejercicio-01.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Visión computacional](Introducción a la IA/06_Visión_computacional) | Ejercicios | [Ejercicio 01 — Cambiar la imagen de predicción en YOLO](Introducción a la IA/06_Visión_computacional/Ejercicios/ejercicio-01.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [Clustering K-medias](Introducción a la IA/07_Clustering_K-medias) | Ejercicios | [Ejercicio 01 — Separar los blobs y volver a elegir k](Introducción a la IA/07_Clustering_K-medias/Ejercicios/ejercicio-01.md) |
-| [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | [RAG](./Introducci%C3%B3n%20a%20la%20IA/RAG) | Proyecto final | [RAG sobre el reglamento oficial de béisbol (FastAPI + Streamlit)](./Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final/rag-app) |
+| 1 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | ✅ Completada | [RAG sobre el reglamento oficial de béisbol](./Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final) |
+| 2 | [Programación para Inteligencia Artificial](./Programaci%C3%B3n%20para%20Inteligencia%20Artificial) | 🚧 En curso | — |
+
+## Estructura del repositorio
+
+```
+masters-ai/
+├── README.md                                  # Este índice
+├── Introducción a la IA/
+│   ├── README.md                              # Temas, ejercicios y proyecto final
+│   ├── 01_Conceptos_básicos_de_Inteligencia_Artificial/
+│   ├── ...
+│   └── RAG/Proyecto final/
+└── Programación para Inteligencia Artificial/
+    └── README.md
+```
+
+Dentro de cada asignatura, los temas siguen la convención `NN_Nombre_del_tema/` con subcarpetas `Ejercicios/`, `Notebooks/` y `evidencia/` según aplique.
+
+### Agregar una nueva asignatura
+
+1. Crear la carpeta en la raíz con el nombre de la asignatura.
+2. Agregar un `README.md` dentro de ella con la tabla de temas (puedes copiar el de una asignatura existente).
+3. Añadir una fila a la tabla de [Asignaturas](#asignaturas) de este README.
 
 ## Licencia
 
