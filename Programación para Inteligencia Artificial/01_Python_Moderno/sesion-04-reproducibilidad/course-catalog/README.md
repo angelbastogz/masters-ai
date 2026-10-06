@@ -47,14 +47,26 @@ Espera mensajes MCP por stdin. No abre una página web ni acepta consultas
 escritas como texto libre. Detén esta ejecución con Ctrl+C y usa el cliente
 incluido o [MCP Inspector](../GUIA.md#7-inspeccionar-la-herramienta).
 
+## Ejercicios de la práctica
+
+Los ejercicios resueltos, con sus comandos, resultados y explicaciones, están en
+[PRACTICA.md](PRACTICA.md).
+
 ## Calidad
 
 ```bash
 make check
 ```
 
-Si no tienes Make, ejecuta las cuatro comprobaciones descritas en
-[CALIDAD.md](../CALIDAD.md). `make run` consulta directamente el catálogo y
-`make client` prueba la herramienta MCP.
-
-[Guía progresiva](../GUIA.md) · [Fuentes](../FUENTES.md)
+> Resultado: 
+```
+uv run --locked ruff check .
+All checks passed!
+uv run --locked ruff format --check .
+11 files already formatted
+uv run --locked mypy --strict main.py server.py client.py catalog
+Success: no issues found in 6 source files
+uv run --locked python -m pytest
+........                                                                                                                                                                                                                          [100%]
+8 passed in 0.68s
+```
