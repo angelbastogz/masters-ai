@@ -5,12 +5,18 @@ from mcp import Client
 
 async def demonstrate() -> None:
     calls: list[tuple[str, dict[str, Any]]] = [
-        ("search_products", {"query": "A portable waterproof Bluetooth speaker", "top_k": 3}),
+        (
+            "search_products",
+            {"query": "A portable waterproof Bluetooth speaker", "top_k": 3},
+        ),
         ("analyze_product", {"product_id": "B0BCTJMN63"}),
         ("compare_products", {"product_ids": ["B0BCTJMN63", "B09MMWM2Y8"]}),
         ("analyze_product", {"product_id": "UNKNOWN_PRODUCT"}),
         ("search_products", {"query": "delivery", "top_k": 0}),
-        ("search_products", {"query": "Comfortable headphones with good sound", "top_k": 2}),
+        (
+            "search_products",
+            {"query": "Comfortable headphones with good sound", "top_k": 2},
+        ),
     ]
     async with Client("http://127.0.0.1:8000/mcp") as client:
         tools = await client.list_tools()

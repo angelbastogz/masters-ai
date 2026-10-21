@@ -26,7 +26,9 @@ class ProductRecord(TypedDict):
 def ensure_data(directory: Path) -> None:
     for filename in ("reviews.jsonl.gz", "products.jsonl.gz"):
         if not (directory / filename).is_file():
-            raise FileNotFoundError(f"Copy the provided datasets folder first: {filename}")
+            raise FileNotFoundError(
+                f"Copy the provided datasets folder first: {filename}"
+            )
 
 
 def rows(path: Path) -> Iterator[tuple[int, dict[str, Any]]]:
@@ -48,19 +50,27 @@ def load(directory: Path) -> tuple[list[ReviewRecord], dict[str, ProductRecord]]
         if product_id in products:
             raise ValueError(f"Duplicate product ID at line {line_number}")
         features = product.get("features") or []
-        if not isinstance(features, list) or any(not isinstance(item, str) for item in features):
+        if not isinstance(features, list) or any(
+            not isinstance(item, str) for item in features
+        ):
             raise ValueError(f"Invalid features at line {line_number}")
         description = product.get("description") or []
         categories = product.get("categories") or []
         family = product.get("family")
         for values in (description, categories):
-            if not isinstance(values, list) or any(not isinstance(item, str) for item in values):
+            if not isinstance(values, list) or any(
+                not isinstance(item, str) for item in values
+            ):
                 raise ValueError(f"Invalid catalog text at line {line_number}")
         if not isinstance(family, str) or not family:
             raise ValueError(f"Invalid family at line {line_number}")
         products[product_id] = {
-            "product_id": product_id, "title": title, "features": features,
-            "description": description, "categories": categories, "family": family,
+            "product_id": product_id,
+            "title": title,
+            "features": features,
+            "description": description,
+            "categories": categories,
+            "family": family,
         }
 
     records: list[ReviewRecord] = []
@@ -75,14 +85,20 @@ def load(directory: Path) -> tuple[list[ReviewRecord], dict[str, ProductRecord]]
         if rating not in (1, 2, 3, 4, 5) or not isinstance(text, str):
             raise ValueError(f"Invalid review at line {line_number}")
         source_line = review.get("source_line")
-        if isinstance(source_line, bool) or not isinstance(source_line, int) or source_line < 1:
+        if (
+            isinstance(source_line, bool)
+            or not isinstance(source_line, int)
+            or source_line < 1
+        ):
             raise ValueError(f"Invalid original line at review line {line_number}")
-        records.append({
-            "review_id": f"Electronics:{source_line}",
-            "product_id": product_id,
-            "text": text,
-            "rating": float(rating),
-        })
+        records.append(
+            {
+                "review_id": f"Electronics:{source_line}",
+                "product_id": product_id,
+                "text": text,
+                "rating": float(rating),
+            }
+        )
     return records, products
 
 
@@ -130,8 +146,7 @@ if __name__ == "__main__":
     print("First product ID:", review_product_ids[0])
 
     example_product = "B0BCTJMN63"
-    print("Catalog text:",
-          catalog_text(products[example_product])[:200])
+    print("Catalog text:", catalog_text(products[example_product])[:200])
 
     reviews = count_reviews(records)
     print("counter: ", len(reviews))

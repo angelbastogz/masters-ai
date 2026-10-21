@@ -13,18 +13,27 @@ mcp = MCPServer("Amazon reviews")
 settings = load_config(CONFIG_PATH)
 model = load_model(settings)
 records, products = load(DATA_DIR)
-product_vectors_for_search, product_ids = build_product_vectors(records, products, model=model,
-                                                                batch_size=settings.batch_size)
+product_vectors_for_search, product_ids = build_product_vectors(
+    records, products, model=model, batch_size=settings.batch_size
+)
 review_counts_for_search = count_reviews(records)
 
 
 # Register your tools here with @mcp.tool().
 
+
 @mcp.tool()
 def search_products(query: str, top_k: int = 5) -> list[SearchResult]:
     try:
-        return search(query, top_k, model, product_vectors_for_search, product_ids,
-                      products, review_counts_for_search)
+        return search(
+            query,
+            top_k,
+            model,
+            product_vectors_for_search,
+            product_ids,
+            products,
+            review_counts_for_search,
+        )
     except ValueError as error:
         raise ToolError(str(error)) from error
 

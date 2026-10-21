@@ -17,7 +17,9 @@ def load_model(settings: Settings) -> SentenceTransformer:
     return SentenceTransformer(settings.model_name, device=settings.device)
 
 
-def encode(texts: list[str], model: SentenceTransformer, batch_size: int) -> torch.Tensor:
+def encode(
+    texts: list[str], model: SentenceTransformer, batch_size: int
+) -> torch.Tensor:
     return model.encode(
         texts,
         batch_size=batch_size,
@@ -25,14 +27,21 @@ def encode(texts: list[str], model: SentenceTransformer, batch_size: int) -> tor
         normalize_embeddings=True,
     )
 
+
 def encode_query(query: str, model: SentenceTransformer) -> torch.Tensor:
     return encode([query], model, batch_size=1)[0]
 
 
-def build_product_vectors(review_records: list[ReviewRecord], product_records: dict[str, ProductRecord],
-                          model: SentenceTransformer, batch_size: int) -> tuple[torch.Tensor, list[str]]:
+def build_product_vectors(
+    review_records: list[ReviewRecord],
+    product_records: dict[str, ProductRecord],
+    model: SentenceTransformer,
+    batch_size: int,
+) -> tuple[torch.Tensor, list[str]]:
     product_ids = list(product_records.keys())
-    catalog_texts = [catalog_text(product_records[product_id]) for product_id in product_ids]
+    catalog_texts = [
+        catalog_text(product_records[product_id]) for product_id in product_ids
+    ]
     catalog_vectors = encode(catalog_texts, model=model, batch_size=batch_size)
 
     texts, _, review_product_ids = review_texts(review_records)
@@ -40,8 +49,11 @@ def build_product_vectors(review_records: list[ReviewRecord], product_records: d
     review_summaries: list[torch.Tensor] = []
 
     for product_id in product_ids:
-        positions = [index for index, review_product_id in enumerate(review_product_ids) if
-                     product_id == review_product_id]
+        positions = [
+            index
+            for index, review_product_id in enumerate(review_product_ids)
+            if product_id == review_product_id
+        ]
         rows = review_vectors[positions]
         average = rows.mean(dim=0)
         summary = F.normalize(average, dim=0)
@@ -66,11 +78,15 @@ if __name__ == "__main__":
     # print("Shape:", review_vectors.shape)
 
     records, products = load(DATA_DIR)
-    product_vectors, product_ids = build_product_vectors(records, products, model=model_encoder, batch_size=settings.batch_size)
+    product_vectors, product_ids = build_product_vectors(
+        records, products, model=model_encoder, batch_size=settings.batch_size
+    )
 
     print("Product vectors shape: ", product_vectors.shape)
     print("Product ids len: ", len(product_ids))
     print("First product id: ", product_ids[0])
 
-    encoded_query = encode_query("A portable waterproof Bluetooth speaker", model=model_encoder)
+    encoded_query = encode_query(
+        "A portable waterproof Bluetooth speaker", model=model_encoder
+    )
     print("Query shape: ", encoded_query.shape)
