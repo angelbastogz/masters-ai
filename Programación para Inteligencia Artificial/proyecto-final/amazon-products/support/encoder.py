@@ -1,9 +1,16 @@
-from sentence_transformers import SentenceTransformer
 import torch
 import torch.nn.functional as F
+from sentence_transformers import SentenceTransformer
 
-from support.settings import Settings, load_config, CONFIG_PATH
-from support.data import ReviewRecord, ProductRecord, catalog_text, review_texts, load, DATA_DIR
+from support.data import (
+    DATA_DIR,
+    ProductRecord,
+    ReviewRecord,
+    catalog_text,
+    load,
+    review_texts,
+)
+from support.settings import CONFIG_PATH, Settings, load_config
 
 
 def load_model(settings: Settings) -> SentenceTransformer:
@@ -28,7 +35,7 @@ def build_product_vectors(review_records: list[ReviewRecord], product_records: d
     catalog_texts = [catalog_text(product_records[product_id]) for product_id in product_ids]
     catalog_vectors = encode(catalog_texts, model=model, batch_size=batch_size)
 
-    texts, review_ids, review_product_ids = review_texts(review_records)
+    texts, _, review_product_ids = review_texts(review_records)
     review_vectors = encode(texts, model=model, batch_size=batch_size)
     review_summaries: list[torch.Tensor] = []
 

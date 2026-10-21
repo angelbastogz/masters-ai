@@ -21,4 +21,10 @@ dev = [
     "matplotlib>=3.11.2",
     "mypy>=2.4.0",
     "pandas>=3.0.6",
+    "ruff>=0.17.1",
 ]
+
+[tool.ruff]
+extend-exclude = ["preparacion_datos.ipynb"]
+[tool.ruff.lint]
+ignore = ["TRY004"]

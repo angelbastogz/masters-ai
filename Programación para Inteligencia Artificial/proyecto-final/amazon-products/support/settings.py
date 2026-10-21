@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 CONFIG_PATH = Path(__file__).resolve().parent.parent / "config.json"
 

@@ -1,13 +1,12 @@
 from mcp.server import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
-from support.settings import load_config, CONFIG_PATH
-from support.encoder import load_model, build_product_vectors
-from support.data import load, DATA_DIR, count_reviews
-
-from support.search import SearchResult, search
-from support.analysis import ProductAnalysis, ProductComparison
 from support import analysis
+from support.analysis import ProductAnalysis, ProductComparison
+from support.data import DATA_DIR, count_reviews, load
+from support.encoder import build_product_vectors, load_model
+from support.search import SearchResult, search
+from support.settings import CONFIG_PATH, load_config
 
 mcp = MCPServer("Amazon reviews")
 

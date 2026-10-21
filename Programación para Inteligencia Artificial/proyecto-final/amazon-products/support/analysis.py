@@ -1,8 +1,8 @@
 from typing import TypedDict
+
 import numpy as np
 
-from support.data import ReviewRecord
-from support.data import load, DATA_DIR
+from support.data import DATA_DIR, ReviewRecord, load
 
 
 class ProductAnalysis(TypedDict):
@@ -44,8 +44,8 @@ def analyze_product(product_id: str, records: list[ReviewRecord]) -> ProductAnal
     review_count = len(ratings)
     np_ratings = np.array(ratings)
 
-    rating_counts = {key: int((np_ratings == key).sum()) for key in rating_counts.keys()}
-    rating_proportions = {key: float(rating_counts[key] / review_count) for key in rating_counts.keys()}
+    rating_counts = {key: int((np_ratings == key).sum()) for key in rating_counts}
+    rating_proportions = {key: float(rating_counts[key] / review_count) for key in rating_counts}
 
     return ProductAnalysis(
         product_id=product_id,

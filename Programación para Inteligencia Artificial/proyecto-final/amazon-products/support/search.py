@@ -1,10 +1,11 @@
+from typing import TypedDict
+
 import torch
 from sentence_transformers import SentenceTransformer
 
-from support.data import load, DATA_DIR, count_reviews, ProductRecord
-from support.settings import load_config, CONFIG_PATH
-from support.encoder import encode_query, load_model, build_product_vectors
-from typing import TypedDict
+from support.data import DATA_DIR, ProductRecord, count_reviews, load
+from support.encoder import build_product_vectors, encode_query, load_model
+from support.settings import CONFIG_PATH, load_config
 
 
 class SearchResult(TypedDict):
