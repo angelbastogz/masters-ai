@@ -21,13 +21,19 @@ async def demonstrate() -> None:
             "search_products",
             {"query": "4K HDMI cable for gaming console", "top_k": 3},
         ),
-        ("compare_products", {"product_ids": ["B09YJXSPPW",
-                                              "B08CZ4KZHN",
-                                              "B06ZZD1WGJ"]}),
-        ("search_products", {"query": "Fitness tracker with long battery life", "top_k": 3}),
-        ("compare_products", {"product_ids": ["B08L4V3PNJ",
-                                              "B0BTV39NV3",
-                                              "B0BJW6R4YX"]}),
+        (
+            "compare_products",
+            {"product_ids": ["B09YJXSPPW", "B08CZ4KZHN", "B06ZZD1WGJ"]},
+        ),
+        (
+            "search_products",
+            {"query": "Fitness tracker with long battery life", "top_k": 3},
+        ),
+        (
+            "compare_products",
+            {"product_ids": ["B08L4V3PNJ", "B0BTV39NV3", "B0BJW6R4YX"]},
+        ),
+        ("analyze_product", {"product_id": "B08L4V3PNJ"}),
     ]
     async with Client("http://127.0.0.1:8000/mcp") as client:
         tools = await client.list_tools()
