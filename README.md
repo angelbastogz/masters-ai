@@ -10,6 +10,7 @@ Cada asignatura vive en su propia carpeta en la raíz del repositorio y tiene su
 |---|---|---|---|
 | 1 | [Introducción a la IA](./Introducci%C3%B3n%20a%20la%20IA) | ✅ Completada | [RAG sobre el reglamento oficial de béisbol](./Introducci%C3%B3n%20a%20la%20IA/RAG/Proyecto%20final) |
 | 2 | [Programación para Inteligencia Artificial](./Programaci%C3%B3n%20para%20Inteligencia%20Artificial) | ✅ Completada | [Búsqueda y análisis de productos de Amazon con MCP](./Programaci%C3%B3n%20para%20Inteligencia%20Artificial/proyecto-final) |
+| 3 | [Aprendizaje supervisado](./Aprendizaje%20supervisado) | 🚧 En curso | — |
 
 ## Estructura del repositorio
 
@@ -17,6 +18,8 @@ Cada asignatura vive en su propia carpeta en la raíz del repositorio y tiene su
 masters-ai/
 ├── README.md                                  # Este índice
 ├── LICENSE
+├── Aprendizaje supervisado/
+│   └── README.md                              # Estructura por definir
 ├── Introducción a la IA/
 │   ├── README.md                              # Temas, ejercicios y proyecto final
 │   ├── 01_Conceptos_básicos_de_Inteligencia_Artificial/
@@ -43,6 +46,7 @@ Cada asignatura organiza su contenido a su manera:
 
 - **Introducción a la IA**: temas `NN_Nombre_del_tema/` con subcarpetas `Ejercicios/`, `Notebooks/` y `evidencia/` según aplique.
 - **Programación para Inteligencia Artificial**: unidades `NN_Nombre_de_la_unidad/` con sesiones `sesion-NN-tema/`, cada una con `README.md`, `PRACTICA.md`, notebooks y, cuando aplica, un proyecto `uv` reproducible.
+- **Aprendizaje supervisado**: estructura por definir.
 
 ### Agregar una nueva asignatura
 
