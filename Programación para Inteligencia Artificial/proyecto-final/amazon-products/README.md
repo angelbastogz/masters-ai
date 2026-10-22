@@ -59,6 +59,7 @@ uv run --locked ruff format --check .
 ## Ejemplos de consultas
 
 La diferencia de medias se calcula respecto al primer producto de cada comparación.
+Los dos ejemplos siguientes se encuentran comentados en `client.py`, para probarlos, descomente las líneas de la 20 a la 35.
 
 ### 1. "4K HDMI cable for gaming console" con top_k = 3
 
