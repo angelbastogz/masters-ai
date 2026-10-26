@@ -1,0 +1,8 @@
+estrategia,RMSE validación,± desv,comentario
+"1. Borrar filas incompletas, sin escalar",96.78,0.91,"Sin escalar, KNN queda dominado por variables grandes; borrar ~1% de filas apenas cambia el resultado."
+"2. Imputar con mediana, sin escalar",96.63,0.42,"Igual que borrar: con solo ~1% de faltantes la imputación casi no influye, pero no se pierden filas."
+3. + estandarizar,62.59,1.44,El cambio más grande: estandarizar hace que todas las variables cuenten en la distancia de KNN.
+4. + one-hot de ocean_proximity,61.2,0.86,Agregar ocean_proximity con one-hot aporta información de ubicación y mejora un poco.
+"5. Como 4, pero con RobustScaler",61.29,1.02,RobustScaler da prácticamente lo mismo; la diferencia está dentro de la variación entre folds.
+"6. Como 4, pero imputando con KNNImputer",61.14,0.84,"El mejor RMSE, pero la mejora sobre la mediana es mínima porque faltan muy pocos valores."
+"7. Como 4, con indicador de faltante",61.4,0.94,"El indicador no ayuda: los faltantes parecen MCAR, así que 'faltar' no da información del precio."
