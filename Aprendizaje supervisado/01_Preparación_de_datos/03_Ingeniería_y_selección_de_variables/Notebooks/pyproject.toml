@@ -1,0 +1,22 @@
+[project]
+name = "notebooks"
+version = "0.1.0"
+description = "Notebook de Ingeniería y selección de variables"
+readme = "README.md"
+authors = [
+    { name = "angelbastogz", email = "angelbastogz@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
+    "pandas>=3.1.0",
+    "scikit-learn>=1.9.1",
+    "scipy>=1.18.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+    "scipy-stubs>=1.18.1.1",
+]

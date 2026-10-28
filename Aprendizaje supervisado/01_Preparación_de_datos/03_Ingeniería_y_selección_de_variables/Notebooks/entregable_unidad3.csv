@@ -1,0 +1,6 @@
+método,k,exactitud_cv,sensibilidad_cv,variables,comentario
+Línea base (30 variables),30,0.978,0.961,todas,"Referencia con todas las variables; la mejor sensibilidad, pero el modelo más complejo"
+Filtro: información mutua,8,0.949,0.924,mean radius; mean perimeter; mean area; mean concave points; worst radius; worst perimeter; worst area; worst concave points,Elige 6 variables de tamaño y 2 de puntos cóncavos: muy redundantes; pierde 3 puntos de exactitud y casi 4 de sensibilidad.
+Filtro: ANOVA F,8,0.949,0.92,mean radius; mean perimeter; mean area; mean concave points; worst radius; worst perimeter; worst area; worst concave points,Elige exactamente las mismas 8 que información mutua; mismo problema de redundancia y la sensibilidad más baja.
+Envoltura: RFE,8,0.962,0.943,radius error; area error; worst radius; worst texture; worst perimeter; worst area; worst smoothness; worst concave points,"Agrega textura y suavidad a tamaño y concavidad; variables más complementarias, mejor que los filtros."
+Integrado: Lasso,8,0.973,0.953,mean concave points; radius error; worst radius; worst texture; worst area; worst smoothness; worst concave points; worst symmetry,"Lista más diversa (tamaño, concavidad, textura, suavidad, simetría); el mejor con 8 variables, cerca de la línea base."
