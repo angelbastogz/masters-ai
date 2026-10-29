@@ -1,0 +1,16 @@
+[project]
+name = "ejercicios"
+version = "0.1.0"
+description = "Ejercicio entregable del modulo 1"
+readme = "README.md"
+authors = [
+    { name = "angelbastogz", email = "angelbastogz@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "ipykernel>=7.4.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
+    "pandas>=3.1.0",
+    "scikit-learn>=1.9.1",
+]
